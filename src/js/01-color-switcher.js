@@ -1,19 +1,26 @@
 import { getRandomHexColor } from './functions.js';
 
-
 const bodyStyle = document.querySelector('body');
-const startBUtton = document.querySelector('button')
+const startButton = document.querySelector('button[data-start]')
+const stopBUtton = document.querySelector('button[data-stop]')
+stopBUtton.disabled = true;
 
-console.log(startBUtton.dataset.start)
+let getInterval;
 
-startBUtton.addEventListener('click', e => {
-    // e.target.dataset.start = bodyStyle.style.backgroundColor = 'black';
-    if (e.target.dataset.start) {
-        bodyStyle.style.backgroundColor = 'black';
-    };
-    if (e.target.dataset.stop) {
-        bodyStyle.style.backgroundColor = 'red';
-    };
+const changeColor = () => {
+        bodyStyle.style.backgroundColor = getRandomHexColor();
+    getInterval = setInterval(() => {
+        bodyStyle.style.backgroundColor = getRandomHexColor();
+    }, 1000)
+    // startButton.removeEventListener('click', changeColor);
+    startButton.disabled = true;
+    stopBUtton.disabled = false;
+};
+startButton.addEventListener('click', changeColor);
+
+stopBUtton.addEventListener('click', () => {
+    clearInterval(getInterval);
+    stopBUtton.disabled = true;
+    startButton.disabled = false;
 });
-// console.log(getRandomHexColor());
-bodyStyle.style.backgroundColor = 'black';
+
