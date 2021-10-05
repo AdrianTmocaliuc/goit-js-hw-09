@@ -1,8 +1,8 @@
 import { getRandomHexColor } from './functions.js';
 
 const bodyStyle = document.querySelector('body');
-const startButton = document.querySelector('button[data-start]')
-const stopBUtton = document.querySelector('button[data-stop]')
+const startButton = document.querySelector('button[data-start]');
+const stopBUtton = document.querySelector('button[data-stop]');
 stopBUtton.disabled = true;
 
 let getInterval;
@@ -12,7 +12,6 @@ const changeColor = () => {
     getInterval = setInterval(() => {
         bodyStyle.style.backgroundColor = getRandomHexColor();
     }, 1000)
-    // startButton.removeEventListener('click', changeColor);
     startButton.disabled = true;
     stopBUtton.disabled = false;
 };
