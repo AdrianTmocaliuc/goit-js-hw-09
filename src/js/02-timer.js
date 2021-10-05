@@ -12,6 +12,7 @@ const valueTimer = document.querySelector('#value');
 const ladelTimer = document.querySelector('#label');
 startButton.disabled = true;
 
+let differents;
 
 const options = {
     enableTime: true, //Enables time picker
@@ -19,19 +20,20 @@ const options = {
     defaultDate: new Date(), //Sets the initial selected date(s).
     minuteIncrement: 1, //Adjusts the step for the minute input (incl. scrolling)
     onClose(selectedDates) { //Function(s) to trigger on every time the calendar is closed. See Events API
+        
         if (selectedDates[0] <= options.defaultDate) {
             return alert('Please choose a date in the future')
         }
         else {
             startButton.disabled = false;
         }
-        const dif = selectedDates[0] - options.defaultDate;
-        console.log(convertMs(dif).days);
+        differents = (selectedDates[0] - options.defaultDate);
+        // console.log(convertMs(dif).days);
     },
 };
 
-// console.log(options.onClose(selectedDates));
+console.log(differents);
 
 flatpickr(inputDate, options);
-// console.log(document.querySelector('#value').textContent);
+console.log(document.querySelector('span[data-days]').textContent);
 
