@@ -1,6 +1,7 @@
 import flatpickr from "flatpickr";
 import { convertMs } from './functions.js'
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from "notiflix";
 
 
 const inputDate = document.querySelector('#date-selector');
@@ -21,7 +22,7 @@ const options = {
         onClose(selectedDates) { //Function(s) to trigger on every time the calendar is closed. See Events API
             
             if (selectedDates[0] <= options.defaultDate) {
-            return alert('Please choose a date in the future')
+            Notiflix.Notify.failure('Please choose a date in the future')
         }
         else {
             startButton.disabled = false;
