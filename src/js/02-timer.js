@@ -5,13 +5,11 @@ import "flatpickr/dist/flatpickr.min.css";
 
 const inputDate = document.querySelector('#date-selector');
 const startButton = document.querySelector('button[data-start]');
-const stopBUtton = document.querySelector('button[data-stop]');
-const timer = document.querySelector('#timer');
-const chronTimer = document.querySelector('#filed');
-const valueTimer = document.querySelector('#value');
-const ladelTimer = document.querySelector('#label');
+const stopButton = document.querySelector('button[data-stop]');
 
 startButton.disabled = true;
+
+// timer.style.display = flex;
 
 let differents;
 
@@ -41,9 +39,10 @@ const addLeadingZero = function (value) {
       return value.padStart(2, '0');
     }
     return value;
-  };
+};
+// const intervalId;
 startButton.addEventListener('click', () => {
-    startButton.disabled = true
+    startButton.disabled = true;
     const intervalId = setInterval(() => {
         const { days, hours, minutes, seconds } = convertMs(differents);
         differents -= 1000;
@@ -54,4 +53,9 @@ startButton.addEventListener('click', () => {
         if (differents < 1) clearInterval(intervalId);
     }, 1000);
 })
+// stopButton.addEventListener('click', () => {
+//     clearInterval(intervalId);
+//     stopButton.disabled = true;
+//     startButton.disabled = false;
+// })
 
