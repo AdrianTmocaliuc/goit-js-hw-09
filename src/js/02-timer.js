@@ -10,6 +10,7 @@ const timer = document.querySelector('#timer');
 const chronTimer = document.querySelector('#filed');
 const valueTimer = document.querySelector('#value');
 const ladelTimer = document.querySelector('#label');
+
 startButton.disabled = true;
 
 let differents;
@@ -18,10 +19,10 @@ const options = {
     enableTime: true, //Enables time picker
     time_24hr: true, //Displays time picker in 24 hour mode without AM/PM selection when enabled.
     defaultDate: new Date(), //Sets the initial selected date(s).
-    minuteIncrement: 1, //Adjusts the step for the minute input (incl. scrolling)
-    onClose(selectedDates) { //Function(s) to trigger on every time the calendar is closed. See Events API
-        
-        if (selectedDates[0] <= options.defaultDate) {
+        minuteIncrement: 1, //Adjusts the step for the minute input (incl. scrolling)
+        onClose(selectedDates) { //Function(s) to trigger on every time the calendar is closed. See Events API
+            
+            if (selectedDates[0] <= options.defaultDate) {
             return alert('Please choose a date in the future')
         }
         else {
@@ -32,8 +33,25 @@ const options = {
     },
 };
 
-console.log(differents);
 
 flatpickr(inputDate, options);
-console.log(document.querySelector('span[data-days]').textContent);
+
+const addLeadingZero = function (value) {
+    if (value.length < 2) {
+      return value.padStart(2, '0');
+    }
+    return value;
+  };
+startButton.addEventListener('click', () => {
+    startButton.disabled = true
+    const intervalId = setInterval(() => {
+        const { days, hours, minutes, seconds } = convertMs(differents);
+        differents -= 1000;
+        document.querySelector('span[data-days]').textContent = addLeadingZero(`${days}`)
+        document.querySelector('span[data-hours]').textContent = addLeadingZero(`${hours}`)
+        document.querySelector('span[data-minutes]').textContent = addLeadingZero(`${minutes}`)
+        document.querySelector('span[data-seconds]').textContent = addLeadingZero(`${seconds}`)
+        if (differents < 1) clearInterval(intervalId);
+    }, 1000);
+})
 
