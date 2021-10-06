@@ -41,10 +41,11 @@ const addLeadingZero = function (value) {
     }
     return value;
 };
-// const intervalId;
+let intervalId;
 startButton.addEventListener('click', () => {
     startButton.disabled = true;
-    const intervalId = setInterval(() => {
+    stopButton.disabled = false;
+    intervalId = setInterval(() => {
         const { days, hours, minutes, seconds } = convertMs(differents);
         differents -= 1000;
         document.querySelector('span[data-days]').textContent = addLeadingZero(`${days}`)
@@ -54,9 +55,9 @@ startButton.addEventListener('click', () => {
         if (differents < 1) clearInterval(intervalId);
     }, 1000);
 })
-// stopButton.addEventListener('click', () => {
-//     clearInterval(intervalId);
-//     stopButton.disabled = true;
-//     startButton.disabled = false;
-// })
+stopButton.addEventListener('click', () => {
+    clearInterval(intervalId);
+    stopButton.disabled = true;
+    startButton.disabled = false;
+})
 
