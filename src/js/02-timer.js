@@ -3,12 +3,16 @@ import { convertMs } from './functions.js'
 import "flatpickr/dist/flatpickr.min.css";
 import Notiflix from "notiflix";
 
+const refs = {
+    inputDate: document.querySelector('#date-selector'),
+    startButton: document.querySelector('button[data-start]'),
+    stopButton: document.querySelector('button[data-stop]'),
+}
+// const inputDate = document.querySelector('#date-selector');
+// const startButton = document.querySelector('button[data-start]');
+// const stopButton = document.querySelector('button[data-stop]');
 
-const inputDate = document.querySelector('#date-selector');
-const startButton = document.querySelector('button[data-start]');
-const stopButton = document.querySelector('button[data-stop]');
-
-startButton.disabled = true;
+refs.startButton.disabled = true;
 
 // timer.style.display = flex;
 
@@ -25,7 +29,7 @@ const options = {
             Notiflix.Notify.failure('Please choose a date in the future')
         }
         else {
-            startButton.disabled = false;
+            refs.startButton.disabled = false;
         }
         differents = (selectedDates[0] - options.defaultDate);
         // console.log(convertMs(dif).days);
@@ -33,7 +37,7 @@ const options = {
 };
 
 
-flatpickr(inputDate, options);
+flatpickr(refs.inputDate, options);
 
 const addLeadingZero = function (value) {
     if (value.length < 2) {
@@ -42,9 +46,9 @@ const addLeadingZero = function (value) {
     return value;
 };
 let intervalId;
-startButton.addEventListener('click', () => {
-    startButton.disabled = true;
-    stopButton.disabled = false;
+refs.startButton.addEventListener('click', () => {
+    refs.startButton.disabled = true;
+    refs.stopButton.disabled = false;
     intervalId = setInterval(() => {
         const { days, hours, minutes, seconds } = convertMs(differents);
         differents -= 1000;
@@ -55,9 +59,9 @@ startButton.addEventListener('click', () => {
         if (differents < 1) clearInterval(intervalId);
     }, 1000);
 })
-stopButton.addEventListener('click', () => {
+refs.stopButton.addEventListener('click', () => {
     clearInterval(intervalId);
-    stopButton.disabled = true;
-    startButton.disabled = false;
+    refs.stopButton.disabled = true;
+    refs.startButton.disabled = false;
 })
 
